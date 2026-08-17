@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LiveTempoApp — Beat detector &amp; metronome for iPhone</title>
+<meta name="description" content="A precise metronome and a live BPM detector, side by side. Find the tempo of what you're hearing, then play along to it.">
+<meta property="og:title" content="LiveTempoApp — Beat detector &amp; metronome for iPhone">
+<meta property="og:description" content="A precise metronome and a live BPM detector, side by side.">
+<meta property="og:image" content="assets/main-dark.png">
+<meta name="theme-color" content="#2E3845">
+<style>html,body{margin:0;background:#2E3845}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+
+</head>
+<body>
+<style>
+.lt-page{font-family:'Space Grotesk',Helvetica,Arial,sans-serif;color:#F5F3F0;background:#2E3845;width:100%;overflow-x:hidden;line-height:1.4;text-wrap:pretty}
+.lt-page *{box-sizing:border-box}
+.lt-page img{max-width:100%}
+.lt-page h1,.lt-page h2,.lt-page p{margin:0}
+.lt-wrap{max-width:1240px;margin:0 auto;padding:0 48px}
+.lt-eyebrow{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#F4713F;margin-bottom:22px}
+.lt-light .lt-eyebrow{color:#C4562A}
+.lt-btn{display:inline-flex;align-items:center;gap:10px;background:#F4713F;color:#fff!important;font-size:17px;font-weight:500;padding:17px 32px;border-radius:999px;text-decoration:none!important;white-space:nowrap}
+.lt-btn:hover{background:#ff8b5e;color:#fff!important}
+.lt-ghost{font-size:15px;font-weight:500;color:#F5F3F0!important;border:1px solid rgba(245,243,240,.28);padding:10px 20px;border-radius:999px;text-decoration:none!important;white-space:nowrap}
+.lt-ghost:hover{color:#fff!important;border-color:rgba(245,243,240,.6)}
+.lt-head{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-top:28px;padding-bottom:28px}
+.lt-logo{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:500;letter-spacing:-.01em}
+.lt-dot{width:13px;height:13px;border-radius:50%;background:#F4713F;animation:lt-pulse 1s ease-in-out infinite;flex:none}
+@keyframes lt-pulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.14);opacity:1}}
+
+.lt-hero{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;padding-top:40px;padding-bottom:96px}
+.lt-hero h1{font-size:clamp(44px,5.4vw,76px);line-height:.98;font-weight:700;letter-spacing:-.035em;margin-bottom:28px}
+.lt-hero p{font-size:21px;line-height:1.55;color:rgba(245,243,240,.68);margin-bottom:40px;max-width:30ch}
+.lt-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.lt-price{font-size:15px;color:rgba(245,243,240,.5)}
+
+.lt-frame{padding:11px;border-radius:50px;background:#12171E;box-shadow:0 40px 90px rgba(0,0,0,.45);width:330px;max-width:100%}
+.lt-frame img{display:block;width:100%;border-radius:40px}
+.lt-frame-sm{padding:9px;border-radius:42px;background:#E4DFD6;flex:1;min-width:0;max-width:260px;box-shadow:none}
+.lt-frame-sm img{border-radius:34px}
+.lt-shots{display:flex;gap:20px}
+
+.lt-light{background:#FAF7F1;color:#23292F;padding:112px 0}
+.lt-light h2{color:#23292F}
+.lt-light p{color:rgba(35,41,47,.7)}
+.lt-cols{display:grid;grid-template-columns:1fr 1fr;gap:80px}
+.lt-col{display:flex;flex-direction:column;gap:36px}
+.lt-page h2{font-size:clamp(32px,3.4vw,42px);line-height:1.05;font-weight:700;letter-spacing:-.03em}
+.lt-col h2{margin-bottom:18px}
+.lt-col p{font-size:18px;line-height:1.6}
+
+.lt-dark{padding:112px 0}
+.lt-dark>.lt-wrap>h2{margin-bottom:64px;max-width:20ch}
+.lt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,243,240,.14)}
+.lt-cell{background:#2E3845;padding:32px 28px 36px}
+.lt-cell b{display:block;font-size:19px;font-weight:500;margin-bottom:10px}
+.lt-cell span{font-size:16px;line-height:1.55;color:rgba(245,243,240,.6)}
+
+.lt-set{display:grid;grid-template-columns:.9fr 1.1fr;gap:72px;align-items:center}
+.lt-set h2{margin-bottom:18px}
+.lt-set p{font-size:18px;line-height:1.6}
+.lt-set .lt-shots{justify-content:flex-end;gap:24px}
+.lt-set .lt-frame-sm{max-width:250px}
+
+.lt-close{padding:128px 0 40px;text-align:center}
+.lt-close h2{font-size:clamp(36px,4vw,56px);line-height:1.02;letter-spacing:-.035em;margin-bottom:24px}
+.lt-close p{font-size:19px;line-height:1.55;color:rgba(245,243,240,.65);margin:0 auto 40px;max-width:42ch}
+.lt-foot{padding:72px 48px 56px;margin-top:64px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;font-size:14px;color:rgba(245,243,240,.45);border-top:1px solid rgba(245,243,240,.12)}
+.lt-foot span:last-child{max-width:60ch;text-align:right}
+
+@media (max-width:980px){
+  .lt-wrap{padding:0 24px}
+  .lt-hero,.lt-cols,.lt-set{grid-template-columns:1fr;gap:48px}
+  .lt-hero{padding-bottom:64px}
+  .lt-hero p{max-width:none}
+  .lt-set .lt-shots{justify-content:flex-start}
+  .lt-grid{grid-template-columns:1fr 1fr}
+  .lt-cell:last-child{grid-column:span 2}
+  .lt-light,.lt-dark{padding:72px 0}
+  .lt-close{padding:88px 0 24px}
+  .lt-foot{padding:56px 24px 40px}
+  .lt-foot span:last-child{text-align:left}
+}
+@media (max-width:560px){
+  .lt-grid{grid-template-columns:1fr}
+  .lt-cell:last-child{grid-column:auto}
+  .lt-shots{flex-wrap:wrap}
+}
+</style>
+
+<div class="lt-page">
+
+  <header class="lt-wrap lt-head">
+    <div class="lt-logo"><span class="lt-dot"></span>LiveTempoApp</div>
+    <a class="lt-ghost" href="http://no/linkyet">Get the app</a>
+  </header>
+
+  <section class="lt-wrap lt-hero">
+    <div>
+      <div class="lt-eyebrow">Beat detector &amp; metronome</div>
+      <h1>Two tools.<br>One screen.</h1>
+      <p>A precise metronome and a live BPM detector, side by side. Find the tempo of what you're hearing, then play along to it.</p>
+      <div class="lt-cta-row">
+        <a class="lt-btn" href="http://no/linkyet">Download on the App Store</a>
+        <span class="lt-price">One-time purchase · iPhone</span>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:center">
+      <div class="lt-frame"><img src="assets/main-dark.png" alt="LiveTempoApp metronome and BPM detector">
+      </div>
+    </div>
+  </section>
+
+  <section class="lt-light">
+    <div class="lt-wrap lt-cols">
+      <div class="lt-col">
+        <div>
+          <div class="lt-eyebrow">BPM Detection</div>
+          <h2>Hear a tempo, read it off the screen</h2>
+          <p>Point your iPhone at whatever is playing and the detector reads the tempo to two decimals. Or tap the beat yourself and the metronome takes the number.</p>
+        </div>
+        <div class="lt-shots">
+          <div class="lt-frame lt-frame-sm"><img src="assets/keypad.png" alt="Numeric BPM entry">
+          </div>
+        </div>
+      </div>
+      <div class="lt-col">
+        <div>
+          <div class="lt-eyebrow">Advanced Metronome</div>
+          <h2>Built for the way you actually practice</h2>
+          <p>Any time signature, subdivisions, accents with their own volume and pitch, and a sound list deep enough to find a click you don't hate.</p>
+        </div>
+        <div class="lt-shots">
+          <div class="lt-frame lt-frame-sm"><img src="assets/sounds.png" alt="Time signature, sounds, accent volume and pitch">
+          </div>
+          <div class="lt-frame lt-frame-sm"><img src="assets/subdivisions.png" alt="Subdivisions and sound list">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lt-dark">
+    <div class="lt-wrap">
+      <h2>Everything on the main screen, nothing buried</h2>
+      <div class="lt-grid">
+        <div class="lt-cell"><b>Tap tempo</b><span>Tap four beats, get the BPM.</span></div>
+        <div class="lt-cell"><b>Custom time signatures</b><span>4/4, 7/4, or whatever the chart says.</span></div>
+        <div class="lt-cell"><b>Subdivisions</b><span>Eighths, triplets, sixteenths and more.</span></div>
+        <div class="lt-cell"><b>Accents</b><span>Separate volume and pitch for click and accent.</span></div>
+        <div class="lt-cell"><b>Sound library</b><span>Woodblock, rim, shaker, marimba, cowbell — or your own audio.</span></div>
+        <div class="lt-cell"><b>Pitch per sound</b><span>Tune the click to any note from C to B.</span></div>
+        <div class="lt-cell"><b>Numeric entry</b><span>Type an exact tempo instead of scrolling to it.</span></div>
+        <div class="lt-cell"><b>Visual beat</b><span>See the beat on the dial when you can't hear it.</span></div>
+        <div class="lt-cell"><b>Light and dark</b><span>One tap between a bright stage and a dark room.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lt-light">
+    <div class="lt-wrap lt-set">
+      <div>
+        <div class="lt-eyebrow">Set lists</div>
+        <h2>Your songs, in order, at the right tempo</h2>
+        <p>Save each song with its BPM and time signature into a set list. On stage, the next tempo is one tap away — in whichever theme you can read under the lights.</p>
+      </div>
+      <div class="lt-shots">
+        <div class="lt-frame lt-frame-sm"><img src="assets/playlist.png" alt="Set lists with saved songs">
+        </div>
+        <div class="lt-frame lt-frame-sm"><img src="assets/main-light-playlist.png" alt="Light theme with set list picker">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lt-wrap lt-close">
+    <h2>Find the tempo. Keep it.</h2>
+    <p>LiveTempoApp is a one-time purchase for iPhone. No ads, no subscription.</p>
+    <a class="lt-btn" href="http://no/linkyet">Download on the App Store</a>
+  </section>
+
+  <footer class="lt-foot">
+    <span>© 2026 LiveTempoApp</span>
+    <span>Apple, the Apple logo and iPhone are trademarks of Apple Inc. App Store is a service mark of Apple Inc.</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
